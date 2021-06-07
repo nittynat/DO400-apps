@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                sendNotification('started', 'team@example.comm')
                 git branch: 'notifications',
                     url: 'https://github.com/nittynat/DO400-apps'
             }
@@ -16,4 +17,10 @@ pipeline {
             }
         }
     }
+}
+
+void sendNotification(String action, String email) {
+    mail to: "${email}",
+        subject: "Pipeline ${action}: ${currentBuild.fullDisplayName}",
+        body: "The following piple ${action}: ${env.BUILD_URL}"
 }
