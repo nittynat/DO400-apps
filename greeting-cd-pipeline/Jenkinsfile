@@ -2,13 +2,16 @@ pipeline {
     agent { label 'nodejs' }
 
     // Set your OCP project
-    environment { APP_NAMESPACE = '...' }
+    environment { APP_NAMESPACE = 'rht-nlind-metrics' }
 
     stages{
 
         stage('Test'){
             steps {
-                sh "node test.js"
+                dir('greeting-cd-pipeline') {
+                    sh "node test.js"
+                }
+
             }
         }
 
@@ -16,7 +19,7 @@ pipeline {
             steps {
                 sh '''
                     oc start-build greeting-metrics \
-                    --follow --wait -n rht-nlind-metrics
+                    --follow --wait -n ${APP_NAMESPACE}
                 '''
             }
         }
