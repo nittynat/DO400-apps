@@ -33,7 +33,7 @@ public class ShoppingCartTest {
         Mockito.when(mockStorage.get(1)).thenReturn(new Product(1, 100));
         Mockito.when(mockStorage.get(2)).thenReturn(new Product(2, 200));
 
-        QuarkusMock.installMockForType(mockStorage, CatalogStorage,class);
+        QuarkusMock.installMockForType(mockStorage, CatalogStorage.class);
     }
 
     private int randomQuantity() {
